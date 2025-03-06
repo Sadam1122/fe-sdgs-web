@@ -54,7 +54,7 @@ function TableDosen() {
       }, 200)
 
       const response = await fetch(
-        `http://127.0.0.1:3900/model/data_dosen?${perPageQuery}&${params.toString()}`,
+        `https://api.sdgstelkomuniversity.my.id/model/data_dosen?${perPageQuery}&${params.toString()}`,
       )
       const result = await response.json()
 

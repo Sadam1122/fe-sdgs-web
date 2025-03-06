@@ -25,7 +25,7 @@ function TableSkripsi() {
       }
 
       const response = await fetch(
-        `http://127.0.0.1:3900/model/get-hasil-akhir?page=${activePage}&per_page=${itemsPerPage}&${params.toString()}`,
+        `https://api.sdgstelkomuniversity.my.id/model/get-hasil-akhir?page=${activePage}&per_page=${itemsPerPage}&${params.toString()}`,
       );
       const result = await response.json();
 
@@ -98,7 +98,7 @@ function TableSkripsi() {
                 item.sdgs_images.map((imgUrl, index) => (
                   <img
                     key={index}
-                    src={`http://127.0.0.1:3900/${imgUrl}`}
+                    src={`https://api.sdgstelkomuniversity.my.id/${imgUrl}`}
                     alt={`SDG ${item.sdgs_images[index]}`}
                     style={{ width: '50px', height: '50px', margin: '0 5px 10px 5px' }}
                   />

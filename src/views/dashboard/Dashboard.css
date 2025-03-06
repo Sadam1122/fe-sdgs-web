@@ -84,3 +84,91 @@
   .print-certificate-button .fa-print {
     margin-right: 0.5rem;
   }
+
+  /* Menggunakan palet warna elegan yang netral dengan aksen teal */
+
+.dashboard-container {
+  background-color: #212631;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.dashboard-title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.dashboard-subtitle {
+  font-size: 1.2rem;
+  color: #ffffff;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.custom-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 1s ease-out;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(255, 255, 255, 0.1);
+}
+
+.custom-card-body {
+  padding: 2rem;
+  background-color: #212631;
+}
+
+.custom-image {
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.custom-image:hover {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+.certificate-button {
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #00796b;
+  border-color: #00796b;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.certificate-button:hover {
+  background-color: #00574b;
+  border-color: #00574b;
+  transform: scale(1.02);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

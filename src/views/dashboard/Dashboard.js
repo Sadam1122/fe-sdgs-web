@@ -1,203 +1,64 @@
-import React, { useState } from 'react';
-import {
-  CCard,
-  CCardBody,
-  CRow,
-  CCol,
-  CForm,
-  CFormInput,
-  CFormTextarea,
-  CButton,
-  CSpinner,
-} from '@coreui/react-pro';
+import React from 'react';
+import { CCard, CCardBody, CRow, CCol, CButton, CContainer } from '@coreui/react-pro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPrint } from '@fortawesome/free-solid-svg-icons';
-import './Dashboard.css'; // We'll create this file for custom styles
+import { faCertificate, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
+import './Dashboard.css';
 
-const Dashboard = () => {
-  const [formData, setFormData] = useState({
-    Judul: '',
-    Penulis: '',
-    Tahun: '',
-    Source: '',
-    Abstrak: '',
-  });
-  const [submittedData, setSubmittedData] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("http://localhost:3900/model/paper", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setSubmittedData(data);
-      } else {
-        console.error("Error submitting data");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+const DashboardMain = () => {
+  const handleGenerateCertificate = () => {
+    window.open("https://cert.sdgstelkomuniversity.my.id", "_blank");
   };
 
   return (
-    <div className="dashboard-container">
-      <CCard className="mb-4">
-        <CCardBody>
-          <h1 className="text-center mb-4">SDGs</h1>
-          <p className="text-center mb-4">Pemetaan 17 Bidang Tujuan Pembangunan Berkelanjutan (SDGs) Dosen Telkom University</p>
-          <img
-            src="https://dinaspmd.kalselprov.go.id/wp-content/uploads/2023/11/SDGs-Indonesia.jpg"
-            alt="SDGs Indonesia"
-            className="img-fluid rounded mx-auto d-block"
-          />
-        </CCardBody>
-      </CCard>
-
-      <CCard className="mb-4">
-        <CCardBody>
-          <h3 className="text-center mb-4">Submit Paper Data</h3>
-          <CForm onSubmit={handleSubmit}>
-            <CRow className="mb-3">
-              <CCol md="6">
-                <CFormInput
-                  label="Judul"
-                  name="Judul"
-                  placeholder="Masukkan judul"
-                  value={formData.Judul}
-                  onChange={handleChange}
-                  required
-                />
-              </CCol>
-              <CCol md="6">
-                <CFormInput
-                  label="Penulis"
-                  name="Penulis"
-                  placeholder="Masukkan penulis"
-                  value={formData.Penulis}
-                  onChange={handleChange}
-                  required
-                />
-              </CCol>
-            </CRow>
-            <CRow className="mb-3">
-              <CCol md="6">
-                <CFormInput
-                  label="Tahun"
-                  name="Tahun"
-                  type="number"
-                  placeholder="Masukkan tahun"
-                  value={formData.Tahun}
-                  onChange={handleChange}
-                  required
-                />
-              </CCol>
-              <CCol md="6">
-                <CFormInput
-                  label="Source"
-                  name="Source"
-                  placeholder="Masukkan sumber"
-                  value={formData.Source}
-                  onChange={handleChange}
-                  required
-                />
-              </CCol>
-            </CRow>
-            <CRow className="mb-3">
-              <CCol>
-                <CFormTextarea
-                  label="Abstrak"
-                  name="Abstrak"
-                  rows="4"
-                  placeholder="Masukkan abstrak"
-                  value={formData.Abstrak}
-                  onChange={handleChange}
-                  required
-                />
-              </CCol>
-            </CRow>
-            <div className="text-center">
-              <CButton type="submit" color="primary" className="px-4" disabled={isSubmitting}>
-                {isSubmitting ? <CSpinner size="sm" /> : 'Submit'}
-              </CButton>
-            </div>
-          </CForm>
-        </CCardBody>
-      </CCard>
-
-      {submittedData && (
-        <CCard className="mt-4 submitted-data-card">
-          <CCardBody>
-            <h4 className="text-center mb-4">Submitted Data</h4>
-            <div className="submitted-data-content">
-              <div className="data-item">
-                <h5>Judul:</h5>
-                <p>{submittedData.data.Judul}</p>
-              </div>
-              <div className="data-item">
-                <h5>Penulis:</h5>
-                <p>{submittedData.data.Penulis}</p>
-              </div>
-              <div className="data-item">
-                <h5>Abstrak:</h5>
-                <p>{submittedData.data.Abstrak}</p>
-              </div>
-              <div className="data-item">
-                <h5>Tahun:</h5>
-                <p>{submittedData.data.Tahun}</p>
-              </div>
-              <div className="data-item">
-                <h5>SDGs:</h5>
-                <ul className="sdgs-list">
-                  {submittedData.data.Sdgs.map((sdg, index) => (
-                    <li key={index}>
-                      <img
-                        src={`/images/${sdg}.png`}
-                        alt={`SDGS ${sdg}`}
-                        className="sdg-icon"
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="data-item">
-                <h5>Source:</h5>
-                <p>{submittedData.data.Source}</p>
-              </div>
-              <div className="text-center mt-4">
-                <CButton
-                  color="success"
-                  href="https://cert.sdgstelkomuniversity.my.id"
-                  target="_blank"
-                  className="px-4 print-certificate-button"
+    <CContainer className="dashboard-container my-5">
+      <div className="text-center mb-5">
+        <h1 className="dashboard-title">Dashboard</h1>
+        <p className="dashboard-subtitle">
+          Selamat datang di Dashboard SDGs Telkom University. Di sini, Anda dapat memantau kontribusi serta pencapaian dalam mendukung Tujuan Pembangunan Berkelanjutan. Unggah karya ilmiah Anda untuk berkolaborasi dalam menciptakan masa depan yang lebih hijau dan raih sertifikat resmi sebagai bukti komitmen.
+        </p>
+      </div>
+      <CCard className="mb-5 shadow-lg custom-card">
+        <CCardBody className="custom-card-body">
+          <CRow className="align-items-center">
+            <CCol md="5" className="text-center">
+              <img
+                src="https://dinaspmd.kalselprov.go.id/wp-content/uploads/2023/11/SDGs-Indonesia.jpg"
+                alt="SDGs Indonesia"
+                className="img-fluid rounded custom-image"
+              />
+            </CCol>
+            <CCol md="7">
+              <h3 className="card-title">Peroleh Sertifikat SDGs Anda</h3>
+              <p className="card-text">
+                Unggah karya ilmiah Anda dan bergabunglah dalam gerakan berkelanjutan. Sertifikat resmi ini mencerminkan dedikasi Anda dalam mendukung pembangunan berkelanjutan dan komitmen terhadap masa depan yang lebih hijau.
+              </p>
+              <p className="card-text">
+                Klik tombol di bawah ini untuk melihat detail sertifikat serta informasi kontribusi Anda secara menyeluruh.
+              </p>
+              <div className="text-center text-md-start mt-4">
+                <CButton 
+                  color="success" 
+                  onClick={handleGenerateCertificate} 
+                  className="px-4 certificate-button text-white d-flex align-items-center"
                 >
-                  <FontAwesomeIcon icon={faPrint} className="me-2" />
-                  Print Certificate
+                  <FontAwesomeIcon icon={faCertificate} className="me-2" />
+                  Buka Halaman Sertifikat
+                  <motion.div 
+                    className="ms-2"
+                    animate={{ x: [0, 5, 0] }} 
+                    transition={{ repeat: Infinity, duration: 0.6 }}
+                  >
+                    <FontAwesomeIcon icon={faArrowRight} />
+                  </motion.div>
                 </CButton>
               </div>
-            </div>
-          </CCardBody>
-        </CCard>
-      )}
-    </div>
+            </CCol>
+          </CRow>
+        </CCardBody>
+      </CCard>
+    </CContainer>
   );
 };
 
-export default Dashboard;
-
+export default DashboardMain;
