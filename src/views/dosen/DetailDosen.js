@@ -51,7 +51,7 @@ function DetailDosen() {
         }, 200)
 
         const response = await axios.get(
-          `https://sdgstelkomuniversity.id/model/detail_dosen?${perPageQuery}&${params.toString()}`
+          `https://api.sdgstelkomuniversity.my.id/model/detail_dosen?${perPageQuery}&${params.toString()}`
         )
 
         clearInterval(interval) // Clear interval when data is fetched
@@ -239,10 +239,10 @@ function DetailDosen() {
                       {item.sdgs_images && item.sdgs_images.length > 0 ? (
                         item.sdgs_images.map((imgUrl, index) => (
                           <img
-                            key={index}
-                            src={`https://sdgstelkomuniversity.id/${imgUrl}`}
-                            alt={`SDG ${item.sdgs_images[index]}`}
-                            style={{ width: '50px', height: '50px', margin: '0 5px 10px 5px' }}
+                          key={index}
+                          src={`https://api.sdgstelkomuniversity.my.id/${imgUrl}`}
+                          alt={`SDG ${item.sdgs_images[index]}`}
+                          style={{ width: '50px', height: '50px', margin: '0 5px 10px 5px' }}
                           />
                         ))
                       ) : (

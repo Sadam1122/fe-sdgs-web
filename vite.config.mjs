@@ -5,7 +5,7 @@ import autoprefixer from 'autoprefixer'
 
 export default defineConfig(() => {
   return {
-    base: 'https://sdgstelkomuniversity.id/',
+    base: 'https://sdgstelkomuniversity.my.id/',
     build: {
       outDir: 'build',
     },
